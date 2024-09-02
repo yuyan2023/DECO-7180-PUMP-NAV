@@ -1,0 +1,84 @@
+/* Button variations */
+.btn-circular {
+  background-color: transparent;
+  border: 1px solid var(--white);
+  border-radius: 5rem;
+  font-size: 0.6rem;
+  color: var(--white);
+  font-weight: 200;
+  cursor: pointer;
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.btn-circular:hover {
+  background-color: var(--white);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+.btn-circular-yellow {
+  background-color: var(--light);
+  border: 1px solid var(--white);
+  border-radius: 5rem;
+  font-size: 0.6rem;
+  color: var(--black);
+  font-weight: 200;
+  cursor: pointer;
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.btn-circular-yellow:hover {
+  background-color: var(--white);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+
+
+.btn-no-back {
+  background-color: transparent;
+  border: 1px solid var(--white);
+  border-radius: 5rem;
+  font-size: 0.6rem;
+  color: var(--white);
+  font-weight: 200;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+
+.btn-no-back:hover {
+  background-color: var(--white);
+  color: var(--black);
+  border-color: var(--black);
+}
+
+.btn-no-back-border {
+  background-color: transparent;
+  border: 1px solid var(--black);
+  border-radius: 5rem;
+  font-size: 0.6rem;
+  color: var(--black);
+  font-weight: 200;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+
+.btn-no-back-border:hover {
+  background-color: var(--gray);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+
+
+/* Pseudo Button */
+.pseudo-btn {
+  border: 1px solid var(--white);
+  border-radius: 5rem;
+  font-size: 0.6rem;
+  color: var(--white);
+  font-weight: 200;
+  padding: 0.4rem 1rem;
+}
