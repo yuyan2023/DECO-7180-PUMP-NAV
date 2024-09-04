@@ -1,0 +1,54 @@
+#hero-image {
+    background-image: url("assets/images/home-hero-page.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+    padding-top: 10rem;
+    margin-top: -5rem;
+    min-height: 32rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#hero-image h1 {
+    text-align: center;
+    color: var(--white);
+    font-weight: 400;
+    margin-top: 2rem;
+}
+
+#hero-image form {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+}
+
+#hero-image form label {
+    display: none;
+}
+
+#hero-image form input {
+    width: 24rem;
+    border-radius: 5rem;
+    height: 2.5rem;
+    padding: 0 2rem;
+    border: none;
+}
+
+#hero-image form input::placeholder {
+    color: var(--black);
+}
+
+#hero-image form button {
+    position: absolute;
+}
+
+#hero-image form button.btn-no-back-border {
+    right: 3rem;
+}
+
+#hero-image form button.btn-circular-yellow {
+    right: 0.6rem;
+}
