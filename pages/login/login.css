@@ -138,3 +138,20 @@ button {
 button:hover {
     background-color: #003399; /* Darker blue on hover */
 }
+
+.register-link {
+    margin-top: 15px; /* Space above the link */
+    text-align: center; /* Centers the text */
+    color: #808080; /* Grey color */
+    font-size: 0.8rem; /* Smaller text size */
+}
+
+.register-link a {
+    color: #0066cc; /* Sets the link color */
+    text-decoration: none; /* No underline */
+}
+
+.register-link a:hover, .register-link a:focus {
+    text-decoration: underline; /* Adds underline on hover/focus for better accessibility */
+    color: #0044cc; /* Darker blue on hover/focus */
+}
