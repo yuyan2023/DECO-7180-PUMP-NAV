@@ -61,7 +61,7 @@ header {
 }
 
 .btn-circular {
-    border: none;
+    border: 2px solid white;
     background-color: transparent; /* Removes default styling */
     cursor: pointer; /* Hand cursor on hover */
     display: flex; /* Ensures the icon centers within the button */
