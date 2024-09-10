@@ -1,5 +1,5 @@
 body {
-    background-image: url('https://images.unsplash.com/photo-1653306571965-d0ae5c2b66e1?q=80&w=2189&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-image: url('https://images.unsplash.com/photo-1593110709145-8fd070905ef2?q=80&w=2333&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -21,8 +21,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 95px;
+    margin: 95px auto 0;
     padding: 10px 20px;
+    width: 75%;
 }
 
 #search-input {
@@ -62,7 +63,7 @@ header {
 .search-result {
     padding: 10px 10px;
     background-color: white;
-    width: 97%;
+    width: 75%;
     margin: 15px auto;
     padding: 15px;
     display: flex;
