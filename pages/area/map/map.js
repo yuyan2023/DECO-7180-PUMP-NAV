@@ -9,11 +9,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to add markers to the map
     function addMarkers(data) {
         data.forEach(station => {
+            const popupContent = `
+                <strong>${station.Site_Name}</strong><br/>
+                Address: ${station.Sites_Address_Line_1}<br/>
+                Suburb: ${station.Site_Suburb}<br/>
+                Brand: ${station.Site_Brand || 'N/A'}<br/> <!-- Check if Site_Brand exists -->
+                Fuel Type: ${station.Fuel_Type || 'N/A'}<br/>
+                Price: $${(station.Price / 100).toFixed(2)} AUD
+            `; // Include more details as needed
+
             L.marker([station.Site_Latitude, station.Site_Longitude])
-                .bindPopup(`<strong>${station.Site_Name}</strong><br/>${station.Sites_Address_Line_1}<br/>${station.Fuel_Type}: ${station.Price / 100} AUD`)
+                .bindPopup(popupContent)
                 .addTo(map);
         });
     }
+
 
     // Function to fetch gas stations based on selected suburb
     function fetchStations(suburb) {
