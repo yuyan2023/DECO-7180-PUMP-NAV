@@ -40,13 +40,15 @@
 #hero-image form input {
   width: 24rem;
   border-radius: 5rem;
-  height: 2.5rem;
+  height: 3.5rem;
   padding: 0 2rem;
+  padding-right: 8rem;
   border: none;
+  font-size: 1rem;
 }
 
 #hero-image form input::placeholder {
-  color: var(--black);
+  color: var(--gray);
 }
 
 #hero-image form button {
