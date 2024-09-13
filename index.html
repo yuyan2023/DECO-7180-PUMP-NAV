@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="index.css" />
-    <script type="module" src="./assets/jquery-3.7.1.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module" src="./index.js" defer></script>
   </head>
 
@@ -71,14 +71,15 @@
           />
           <button
             class="btn-no-back-border"
-            type="submit"
+            type="button"
             aria-label="filters button"
+            id="openModal"
           >
             Filter
           </button>
           <button
             class="btn-circular-yellow"
-            type="submit"
+            type="button"
             aria-label="search button"
           >
             <i class="bi bi-search"></i>
@@ -86,5 +87,11 @@
         </form>
       </div>
     </main>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>这是一个简单的弹框内容。</p>
+      </div>
+    </div>
   </body>
 </html>
