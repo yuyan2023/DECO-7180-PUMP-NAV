@@ -35,3 +35,27 @@ typeButton.addEventListener('click', function() {
         typeButton.textContent = 'Fuel Type ▼';
     }
 });
+
+let sqlQuery = `
+    SELECT DISTINCT "Site_Name"
+    FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5"
+    WHERE "TransactionDateutc" >= '2024-07-31T00:00:00'
+    AND "TransactionDateutc" < '2024-08-01T00:00:00'
+`;
+
+$.ajax({
+    url: 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql',
+    data: {
+        sql: sqlQuery
+    },
+    dataType: 'jsonp',
+    success: function(data) {
+        console.log('Total unique Site Names found: ' + data.result.records.length);
+        data.result.records.forEach(function(record) {
+            console.log('Site Name:', record.Site_Name);
+        });
+    },
+    error: function(error) {
+        console.error('Error fetching data:', error);
+    }
+});

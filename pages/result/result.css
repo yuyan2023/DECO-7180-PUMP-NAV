@@ -23,7 +23,7 @@ header {
     align-items: center;
     margin: 95px auto 0;
     padding: 10px 20px;
-    width: 75%;
+    width: 65%;
 }
 
 #search-input {
@@ -90,7 +90,7 @@ header {
 .search-result {
     padding: 10px 10px;
     background-color: white;
-    width: 75%;
+    width: 65%;
     margin: 15px auto;
     padding: 15px;
     display: flex;
