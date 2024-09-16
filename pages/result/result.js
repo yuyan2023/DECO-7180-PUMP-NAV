@@ -1,6 +1,5 @@
 let isPriceAscending = true;
 let isDistanceAscending = true;
-let isFuelTypeAscending = true;
 
 const priceButton = document.getElementById('price-button');
 const distanceButton = document.getElementById('distance-button');
@@ -29,16 +28,6 @@ distanceButton.addEventListener('click', function() {
         distanceButton.textContent = 'Distance ▲';
     } else {
         distanceButton.textContent = 'Distance ▼';
-    }
-});
-
-typeButton.addEventListener('click', function() {
-    isFuelTypeAscending = !isFuelTypeAscending;
-
-    if (isFuelTypeAscending) {
-        typeButton.textContent = 'Fuel Type ▲';
-    } else {
-        typeButton.textContent = 'Fuel Type ▼';
     }
 });
 
@@ -150,7 +139,7 @@ function renderResults(page) {
         let siteLogo = getLogoBasedOnSiteName(record.Site_Name);
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
         const formattedPrice = (record.Price / 1000).toFixed(3);
-        const priceDisplay = `AUD ${formattedPrice} per liter`;
+        const priceDisplay = `AUD ${formattedPrice} / L`;
 
         resultDiv.innerHTML = `
             <div class="site-logo">
@@ -159,8 +148,8 @@ function renderResults(page) {
             <div class="site-info">
                 <p class="site-name">${record.Site_Name}</p>
                 <p class="site-address">${fullAddress}</p>
-                <p class="site-price">${priceDisplay}</p>
             </div>
+            <p class="site-price">${priceDisplay}</p>
         `;
 
         searchResultContainer.appendChild(resultDiv);
