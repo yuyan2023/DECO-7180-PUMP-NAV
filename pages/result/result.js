@@ -16,10 +16,10 @@ priceButton.addEventListener('click', function () {
 
     if (isPriceAscending) {
         priceButton.textContent = 'Price ▲';
-        sortResultsByPrice(true);  // 升序排序
+        sortResultsByPrice(true); 
     } else {
         priceButton.textContent = 'Price ▼';
-        sortResultsByPrice(false);  // 降序排序
+        sortResultsByPrice(false);
     }
 });
 
@@ -135,13 +135,9 @@ function renderResults(page) {
         const targetUrl = './detail-pages/detail.html';
         let siteLogo = getLogoBasedOnSiteName(record.Site_Name);
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
-        const minPrice = 1.002;
-        const maxPrice = 2.500;
-        let priceInLiters = (record.Price / 1000).toFixed(3);
-        priceInLiters = Math.max(minPrice, Math.min(maxPrice, priceInLiters));
-        const priceDisplay = `AUD ${priceInLiters} / L`;
+        const formattedPrice = (record.Price / 1000).toFixed(3);
+        const priceDisplay = `AUD ${formattedPrice} / L`;
 
-        const fuelType = record.Fuel_Type;
         resultDiv.addEventListener('click', function () {
             window.location.href = targetUrl;
         });
@@ -154,7 +150,6 @@ function renderResults(page) {
                 <p class="site-name">${record.Site_Name}</p>
                 <p class="site-address">${fullAddress}</p>
             </div>
-            <p class="fuel-type">${fuelType}<p/>
             <p class="site-price">${priceDisplay}</p>
         `;
 
@@ -261,5 +256,3 @@ const getLogoBasedOnSiteName = (siteName) => {
 
     return '';
 }
-
-
