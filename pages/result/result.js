@@ -140,7 +140,8 @@ function renderResults(page) {
         const formattedPrice = (record.Price / 1000).toFixed(3);
         const priceDisplay = `AUD ${formattedPrice} / L`;
 
-        resultDiv.addEventListener('click', function() {
+        const fuelType = record.Fuel_Type;
+        resultDiv.addEventListener('click', function () {
             window.location.href = targetUrl;
         });
 
@@ -152,6 +153,7 @@ function renderResults(page) {
                 <p class="site-name">${record.Site_Name}</p>
                 <p class="site-address">${fullAddress}</p>
             </div>
+            <p class="fuel-type">${fuelType}<p/>
             <p class="site-price">${priceDisplay}</p>
         `;
 
