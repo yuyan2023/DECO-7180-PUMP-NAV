@@ -139,6 +139,7 @@ function renderResults(page) {
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
         const formattedPrice = (record.Price / 1000).toFixed(3);
         const priceDisplay = `AUD ${formattedPrice} / L`;
+        const fuelType = record.Fuel_Type;
 
         resultDiv.addEventListener('click', function() {
             window.location.href = targetUrl;
@@ -152,6 +153,7 @@ function renderResults(page) {
                 <p class="site-name">${record.Site_Name}</p>
                 <p class="site-address">${fullAddress}</p>
             </div>
+            <p class="fuel-type">${fuelType}</p>
             <p class="site-price">${priceDisplay}</p>
         `;
 
