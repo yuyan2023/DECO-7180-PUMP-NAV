@@ -51,7 +51,7 @@
   color: var(--black);
   border-color: var(--black);
 }
-.btn-circular .bi:hover{
+.btn-circular:hover .bi{
   color: var(--black);
 }
 
