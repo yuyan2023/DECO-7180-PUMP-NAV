@@ -5,7 +5,7 @@ const priceButton = document.getElementById('price-button');
 const distanceButton = document.getElementById('distance-button');
 const typeButton = document.getElementById('fuel-type-button');
 
-const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql'
+const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql';
 
 let currentPage = 1;
 const resultsPerPage = 10;
@@ -16,9 +16,14 @@ priceButton.addEventListener('click', function() {
 
     if (isPriceAscending) {
         priceButton.textContent = 'Price ▲';
+        allRecords.sort((a, b) => a.Price - b.Price);
     } else {
         priceButton.textContent = 'Price ▼';
+        allRecords.sort((a, b) => b.Price - a.Price);
     }
+
+    renderResults(currentPage);
+    renderPagination();
 });
 
 distanceButton.addEventListener('click', function() {
@@ -123,7 +128,6 @@ function renderPagination() {
     paginationContainer.appendChild(inputContainer);
 }
 
-
 function renderResults(page) {
     const searchResultContainer = document.querySelector('.search-result');
     searchResultContainer.innerHTML = '';
@@ -137,8 +141,11 @@ function renderResults(page) {
         const targetUrl = './detail-pages/detail.html';
         let siteLogo = getLogoBasedOnSiteName(record.Site_Name);
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
-        const formattedPrice = (record.Price / 1000).toFixed(3);
-        const priceDisplay = `AUD ${formattedPrice} / L`;
+        const minPrice = 1.039;
+        const maxPrice = 2.500;
+        let priceInLiters = (record.Price / 1000).toFixed(3);
+        priceInLiters = Math.max(minPrice, Math.min(maxPrice, priceInLiters));
+        const priceDisplay = `AUD ${priceInLiters} / L`;
         const fuelType = record.Fuel_Type;
 
         resultDiv.addEventListener('click', function() {
@@ -243,5 +250,3 @@ const getLogoBasedOnSiteName = (siteName) => {
 
     return '';
 };
-
-
