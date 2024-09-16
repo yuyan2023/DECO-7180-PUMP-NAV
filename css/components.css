@@ -1,4 +1,36 @@
 /* Button variations */
+
+.btn-primary {
+  padding: 0.6rem 3rem;
+  background-color: var(--darkBlue);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary);
+}
+
+.btn-text {
+  padding: 0.6rem 2rem;
+  font-weight: bold;
+  border: none;
+  color: var(--black);
+  background: none;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.btn-text:hover {
+  border: none;
+  color: var(--black);
+  background: none;
+  cursor: pointer;
+  background-color: var(--gray);
+}
+
 .btn-circular {
   background-color: transparent;
   border: 1px solid var(--white);
@@ -97,24 +129,45 @@
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--bg);
   margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
+  padding: 2rem;
+  border: 1px solid var(--gray);
   width: 30%;
 }
 
-.close {
-  color: #aaa;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--gray);
+  padding-bottom: 1rem;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+
+.modal .close {
+  color: var(--gray);
   float: right;
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
+.modal .close:hover,
+.modal .close:focus {
+  color: var(--black);
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--gray);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
 }

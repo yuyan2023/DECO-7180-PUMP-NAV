@@ -5,9 +5,12 @@
   --action: #fa7f08;
   --danger: #f24405;
 
+  --darkBlue: #006CFC;
+
   --white: #fff;
   --black: #1A1A1A;
   --gray: #cbcbcb;
+  --bg: #fefefe;
 }
 
 *,

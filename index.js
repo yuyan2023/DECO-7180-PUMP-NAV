@@ -1,5 +1,5 @@
 import './components/modal.js';
-import { fetchAllBrand } from './components/api.js';
+import { fetchAllBrand, fetchAllType } from './components/api.js';
 
 const setupModal = () => {
     const $modal = $('#filter-popup');
@@ -12,9 +12,19 @@ const setupModal = () => {
 }
 
 const generateFilters = async () => {
-    const data = await fetchAllBrand();
-    console.log(data)
+    const allBrand = await fetchAllBrand();
+    console.log(allBrand)
+    const allTypes = await fetchAllType();
+    console.log(allTypes)
+    generateTypes(allTypes)
+}
 
+const generateTypes = data => {
+    const $container = $("#form-petrol-type");
+    data.forEach(type => {
+        $container.append(`<input type="checkbox" name="type" checked value="${type.Fuel_Type}">`)
+        $container.append(`<label for="type-diesel" class="filter-button">${type.Fuel_Type}</label>`)
+    });
 }
 
 $(document).ready(() => {
