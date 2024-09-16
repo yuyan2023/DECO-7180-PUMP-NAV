@@ -183,7 +183,7 @@ header {
 .site-price {
     position: absolute;
     top: 80px;
-    left: 850px;
+    right: 45px;
     font-size: 1.3rem;
     color: red;
     font-weight: bold;
@@ -192,8 +192,8 @@ header {
 .fuel-type {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: absolute;
-    left: 850px;
-    top: 40px;
+    right: 45px;
+    top: 35px;
 }
 
 .pagination {
