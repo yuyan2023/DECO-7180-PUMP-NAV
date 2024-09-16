@@ -124,7 +124,6 @@ function renderPagination() {
 }
 
 
-
 function renderResults(page) {
     const searchResultContainer = document.querySelector('.search-result');
     searchResultContainer.innerHTML = '';
@@ -135,11 +134,15 @@ function renderResults(page) {
     recordsToDisplay.forEach((record) => {
         const resultDiv = document.createElement('div');
         resultDiv.classList.add('result');
-
+        const targetUrl = './detail-pages/detail.html';
         let siteLogo = getLogoBasedOnSiteName(record.Site_Name);
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
         const formattedPrice = (record.Price / 1000).toFixed(3);
         const priceDisplay = `AUD ${formattedPrice} / L`;
+
+        resultDiv.addEventListener('click', function() {
+            window.location.href = targetUrl;
+        });
 
         resultDiv.innerHTML = `
             <div class="site-logo">
