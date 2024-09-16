@@ -42,7 +42,8 @@
   height: 2rem;
   width: 2rem;
 }
-.btn-circular .bi{
+
+.btn-circular .bi {
   color: var(--white);
 }
 
@@ -51,7 +52,8 @@
   color: var(--black);
   border-color: var(--black);
 }
-.btn-circular:hover .bi{
+
+.btn-circular:hover .bi {
   color: var(--black);
 }
 
@@ -140,6 +142,10 @@
   padding: 2rem;
   border: 1px solid var(--gray);
   width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -98%);
 }
 
 .modal-header {
