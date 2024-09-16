@@ -59,7 +59,14 @@
   <div id="filter-popup" class="modal">
     <div class="modal-content">
       <i class="close bi bi-x-lg"></i>
-      <p>this is popup content</p>
+      <form id="price-form" action="/submit" method="post">
+        <div class="price-range-container">
+          <label for="price-range">Price Range</label>
+          <input type="range" id="price-range" name="price" min="0" max="1000" step="10" value="500"
+            oninput="updatePriceValue(this.value)">
+          <span id="price-value">500</span>
+        </div>
+      </form>
     </div>
   </div>
 </body>
