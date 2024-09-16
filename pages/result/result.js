@@ -135,10 +135,13 @@ function renderResults(page) {
         const targetUrl = './detail-pages/detail.html';
         let siteLogo = getLogoBasedOnSiteName(record.Site_Name);
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
-        const formattedPrice = (record.Price / 1000).toFixed(3);
-        const priceDisplay = `AUD ${formattedPrice} / L`;
-        const fuelType = record.Fuel_Type;
+        const minPrice = 1.002;
+        const maxPrice = 2.500;
+        let priceInLiters = (record.Price / 1000).toFixed(3);
+        priceInLiters = Math.max(minPrice, Math.min(maxPrice, priceInLiters));
+        const priceDisplay = `AUD ${priceInLiters} / L`;
 
+        const fuelType = record.Fuel_Type;
         resultDiv.addEventListener('click', function () {
             window.location.href = targetUrl;
         });
