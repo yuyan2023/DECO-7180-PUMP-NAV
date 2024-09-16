@@ -60,16 +60,62 @@
   </main>
   <div id="filter-popup" class="modal">
     <div class="modal-content">
-      <i class="close bi bi-x-lg"></i>
-      <form id="price-form" action="/submit" method="post">
-        <div class="price-range-container">
-          <label for="price-range">Price Range</label>
-          <input type="range" id="price-range" name="price" min="0" max="1000" step="10" value="500"
-            oninput="updatePriceValue(this.value)">
-          <span id="price-value">500</span>
+      <div class="modal-header">
+        <h2>Filters</h2>
+        <i class="close bi bi-x-lg"></i>
+      </div>
+      <form id="filters-form" action="/your-action-url" method="GET">
+        <div class="modal-body">
+          <!-- Price Range -->
+          <div class="filter-group">
+            <label for="price-range">Price Range</label>
+            <input type="range" id="price-range" name="price" min="0" max="1000" step="10" value="500" class="slider"
+              oninput="updatePriceValue(this.value)">
+            <span id="price-value">500</span>
+          </div>
+          <!-- Petrol Brand -->
+          <div class="filter-group">
+            <label>Petrol Brand</label>
+            <div class="button-group">
+              <input type="radio" id="brand-all" name="brand" value="all" checked>
+              <label for="brand-all" class="filter-button">All</label>
+
+              <input type="radio" id="brand-citgo" name="brand" value="citgo">
+              <label for="brand-citgo" class="filter-button"><img src="citgo.png" alt="Citgo"></label>
+
+              <input type="radio" id="brand-texaco" name="brand" value="texaco">
+              <label for="brand-texaco" class="filter-button"><img src="texaco.png" alt="Texaco"></label>
+
+              <input type="radio" id="brand-shell" name="brand" value="shell">
+              <label for="brand-shell" class="filter-button"><img src="shell.png" alt="Shell"></label>
+
+              <input type="radio" id="brand-bp" name="brand" value="bp">
+              <label for="brand-bp" class="filter-button"><img src="bp.png" alt="BP"></label>
+            </div>
+          </div>
+          <!-- Petrol Type -->
+          <div class="filter-group">
+            <label>Petrol Type</label>
+            <div class="button-group" id="form-petrol-type">
+              <input type="checkbox" id="type-all" name="type" value="all" checked>
+              <label for="type-all" class="filter-button">All</label>
+            </div>
+          </div>
+          <!-- Distance Range -->
+          <div class="filter-group">
+            <label for="distance-range">Distance Range</label>
+            <input type="range" id="distance-range" name="distance" min="0" max="100" step="1" value="50" class="slider"
+              oninput="updateDistanceValue(this.value)">
+            <span id="distance-value">50</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-text" onclick="resetFilters()">Reset Filters</button>
+          <button type="submit" class="btn-primary">Search</button>
         </div>
       </form>
     </div>
+  </div>
   </div>
 </body>
 

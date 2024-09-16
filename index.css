@@ -62,3 +62,23 @@
 #hero-image form button.btn-circular-yellow {
   right: 0.6rem;
 }
+
+
+.modal .filter-group {
+  margin-bottom: 20px;
+}
+
+.modal .button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+.modal .slider {
+  width: 100%;
+}
+
+.modal .modal-footer {
+  margin-top: 20px;
+}
