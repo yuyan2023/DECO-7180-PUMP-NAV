@@ -189,6 +189,13 @@ header {
     font-weight: bold;
 }
 
+.fuel-type {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: absolute;
+    left: 850px;
+    top: 40px;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
