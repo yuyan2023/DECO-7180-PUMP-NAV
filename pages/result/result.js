@@ -5,23 +5,25 @@ const priceButton = document.getElementById('price-button');
 const distanceButton = document.getElementById('distance-button');
 const typeButton = document.getElementById('fuel-type-button');
 
-const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql'
+const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql';
 
 let currentPage = 1;
 const resultsPerPage = 10;
 let allRecords = [];
 
-priceButton.addEventListener('click', function() {
+priceButton.addEventListener('click', function () {
     isPriceAscending = !isPriceAscending;
 
     if (isPriceAscending) {
         priceButton.textContent = 'Price ▲';
+        sortResultsByPrice(true);  // 升序排序
     } else {
         priceButton.textContent = 'Price ▼';
+        sortResultsByPrice(false);  // 降序排序
     }
 });
 
-distanceButton.addEventListener('click', function() {
+distanceButton.addEventListener('click', function () {
     isDistanceAscending = !isDistanceAscending;
 
     if (isDistanceAscending) {
@@ -89,11 +91,8 @@ function renderPagination() {
     };
 
     paginationContainer.appendChild(createPageButton('First', 1, currentPage === 1));
-
     paginationContainer.appendChild(createPageButton('Prev', currentPage - 1, currentPage === 1));
-
     paginationContainer.appendChild(createPageButton('Next', currentPage + 1, currentPage === totalPages));
-
     paginationContainer.appendChild(createPageButton('Last', totalPages, currentPage === totalPages));
 
     const inputContainer = document.createElement('div');
@@ -123,7 +122,6 @@ function renderPagination() {
     paginationContainer.appendChild(inputContainer);
 }
 
-
 function renderResults(page) {
     const searchResultContainer = document.querySelector('.search-result');
     searchResultContainer.innerHTML = '';
@@ -139,8 +137,9 @@ function renderResults(page) {
         const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
         const formattedPrice = (record.Price / 1000).toFixed(3);
         const priceDisplay = `AUD ${formattedPrice} / L`;
+        const fuelType = record.Fuel_Type;
 
-        resultDiv.addEventListener('click', function() {
+        resultDiv.addEventListener('click', function () {
             window.location.href = targetUrl;
         });
 
@@ -152,11 +151,29 @@ function renderResults(page) {
                 <p class="site-name">${record.Site_Name}</p>
                 <p class="site-address">${fullAddress}</p>
             </div>
+            <p class="fuel-type">${fuelType}<p/>
             <p class="site-price">${priceDisplay}</p>
         `;
 
         searchResultContainer.appendChild(resultDiv);
     });
+}
+
+// Price sorting function
+function sortResultsByPrice(ascending) {
+    allRecords.sort((a, b) => {
+        const priceA = parseFloat(a.Price);
+        const priceB = parseFloat(b.Price);
+
+        if (ascending) {
+            return priceA - priceB;  // 升序
+        } else {
+            return priceB - priceA;  // 降序
+        }
+    });
+
+    // 排序后重新渲染结果
+    renderResults(currentPage);
 }
 
 const getLogoBasedOnSiteName = (siteName) => {
@@ -240,6 +257,6 @@ const getLogoBasedOnSiteName = (siteName) => {
     }
 
     return '';
-};
+}
 
 
