@@ -49,7 +49,7 @@
         <button class="btn-no-back-border" type="button" aria-label="filters button" id="open-filter-btn">
           Filter
         </button>
-        <button class="btn-circular-yellow" type="submit" aria-label="search button">
+        <button class="btn-circular-yellow" type="button" id="search-btn" aria-label="search button">
           <i class="bi bi-search"></i>
         </button>
       </form>
@@ -65,8 +65,9 @@
         <div class="modal-body">
           <!-- Price Range -->
           <div class="filter-group">
+            <input type="hidden" name="min-price">
             <label for="price-range">Price Range</label>
-            <input type="range" id="price-range" name="price" step="10" value="500" class="slider">
+            <input type="range" id="price-range" name="price" step="10" class="slider">
             <span></span>
           </div>
           <!-- Petrol Brand -->
@@ -88,13 +89,13 @@
           <!-- Distance Range -->
           <div class="filter-group">
             <label for="distance-range">Distance Range</label>
-            <input type="range" id="distance-range" name="distance" min="0" max="10" step="1" value="50" class="slider">
+            <input type="range" id="distance-range" name="distance" min="0" max="10" step="1" value="10" class="slider">
             <span>0km - 10km</span>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-text" onclick="resetFilters()">Reset Filters</button>
-          <button type="submit" class="btn-primary">Search</button>
+          <button type="button" class="btn-text" id="reset-btn">Reset Filters</button>
+          <button type="submit" class="btn-primary" id="modal-search-btn">Search</button>
         </div>
       </form>
     </div>

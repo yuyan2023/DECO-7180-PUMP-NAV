@@ -23,6 +23,7 @@ const generateFilters = async () => {
 
 const setupPriceRangeInput = priceRange => {
     const { max, min } = priceRange[0]
+    $('input[name="min-price"]').val(min);
     const $input = $('#price-range');
     $input.next().text(`AUD $${min} - AUD $${max}`);
     $input.attr({ min, max, value: max }).bind('input', () => {
@@ -92,7 +93,32 @@ const generateTypes = data => {
     });
 }
 
+const bindSearch = () => {
+    $("#search-btn, #modal-search-btn").click(() => {
+        const q = $('#search-input').val();
+        if (!q) { return }
+
+        const minPrice = $('input[name="min-price"]').val();
+        const maxPrice = $('#price-range').val();
+        const brand = $('input[name="brand"]:checked').map((index, item) => item.value).get();
+        const type = $('input[name="type"]:checked').map((index, item) => item.value).get();
+        const maxDistance = $('#distance-range').val();
+
+        const params = new URLSearchParams({
+            q,
+            brand,
+            type,
+            price: `${minPrice}-${maxPrice}`,
+            distance: `0-${maxDistance}`
+        });
+
+        const targetUrl = './pages/result/result.html?' + params.toString();
+        window.location.href = targetUrl;
+    })
+}
+
 $(document).ready(() => {
     setupModal();
     generateFilters();
+    bindSearch();
 });
