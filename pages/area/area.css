@@ -29,7 +29,6 @@ body, html {
 header {
     background: rgba(0, 0, 0, 0.5);
     color: white;
-    padding: 10px 20px;
     position: fixed; 
     top: 0; 
     left: 0;
@@ -51,12 +50,6 @@ header {
 .navbar-link {
     color: white;
     text-decoration: none;
-}
-
-.button-group {
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
 }
 
 .btn-circular {

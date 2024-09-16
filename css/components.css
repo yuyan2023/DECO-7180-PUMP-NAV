@@ -42,11 +42,17 @@
   height: 2rem;
   width: 2rem;
 }
+.btn-circular .bi{
+  color: var(--white);
+}
 
 .btn-circular:hover {
   background-color: var(--white);
   color: var(--black);
   border-color: var(--black);
+}
+.btn-circular .bi:hover{
+  color: var(--black);
 }
 
 .btn-circular-yellow {
@@ -76,7 +82,7 @@
   font-size: 0.8rem;
   color: var(--white);
   font-weight: 200;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 1.4rem;
   cursor: pointer;
 }
 

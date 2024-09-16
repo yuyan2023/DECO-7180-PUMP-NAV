@@ -24,7 +24,6 @@ header {
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
     color: white;
-    padding: 10px 20px;
     position: fixed; 
     top: 0; 
     z-index: 1000; /* Ensures the header stays on top */
@@ -48,12 +47,6 @@ header {
 .navbar-link {
     color: white;
     text-decoration: none;
-}
-
-.button-group {
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
 }
 
 .btn-circular, .btn-no-back {
