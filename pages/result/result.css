@@ -91,6 +91,7 @@ header {
     padding: 10px 10px;
     background-color: white;
     width: 65%;
+    height: 600px;
     margin: 15px auto;
     padding: 15px;
     display: flex;
@@ -98,7 +99,31 @@ header {
     justify-content: space-around;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+.search-results {
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f0f0f0;
+}
+
+.search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+
 
 .result {
     border-radius: 5px;
@@ -107,9 +132,8 @@ header {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     margin-bottom: 10px;
     transition: box-shadow 0.2s ease;
-    display: flex;
-    align-items: center;
     padding: 10px;
+    position: relative;
 }
 
 .result:hover {
@@ -125,34 +149,45 @@ header {
     align-items: center;
     border-radius: 5px;
     overflow: hidden;
+    margin-left: 2.5%;
+    position: absolute;
+    top: 25px;
+    left: 10px;
 }
 
 .site-logo img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+
 }
 
 .site-info {
-    display: flex;
-    flex-direction: column;
+    position: absolute;
     justify-content: space-between;
+    top: 15px;
+    left: 170px;
     height: 100%;
 }
 
 .site-name {
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
 .site-address {
+    margin-top: 55px;
     font-size: 0.875rem;
     color: #666;
 }
 
 .site-price {
-    font-size: 1rem;
-    color: #333;
+    position: absolute;
+    top: 80px;
+    left: 850px;
+    font-size: 1.3rem;
+    color: red;
+    font-weight: bold;
 }
 
 .pagination {
@@ -160,8 +195,6 @@ header {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     padding: 10px 0;
     z-index: 1000;
@@ -227,3 +260,4 @@ header {
 .go-button:hover {
     box-shadow: 0px 2px 10px 5px #1abc9c;
 }
+
