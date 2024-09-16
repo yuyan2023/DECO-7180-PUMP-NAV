@@ -28,7 +28,7 @@
                 <li><a href="#" class="navbar-link">Home</a></li>
                 <li><a href="#" class="navbar-link">Listings</a></li>
                 <li><a href="#" class="navbar-link">Members</a></li>
-                <li><a href="#" class="navbar-link">Pages</a></li>
+                <li><a href="#" class="navbar-link">Area</a></li>
                 <li><a href="#" class="navbar-link">Contact</a></li>
             </ul>
         </nav>
@@ -38,11 +38,14 @@
         </div>
     </header>
     <section class="map-container">
+        <div class="select-container">
+        <button class="back-button" onclick="goBack()">Go Back</button>
         <select id="suburbSelector">
         <option value="">Select a Suburb</option>
         <!-- Dynamically populated options will go here -->
+         
     </select>
-    
+    </div>
     <article id="map"></article> 
     
 </section>
@@ -52,4 +55,9 @@
     
 
 </body>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </html>

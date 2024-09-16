@@ -87,7 +87,17 @@ select {
     height: 50px;
     background-color: rgb(232, 229, 229);
 }
-
+.back-button {
+    width: 10%; /* Adjusted width for better control */
+    margin: 1rem; /* Margin for spacing from map edges */
+    position: absolute; /* Absolute positioning */
+    top: 100px; /* Position below header */
+    left: 10%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust horizontal centering */
+    z-index: 1000; /* Ensure dropdown is above the map */
+    height: 50px;
+    background-color: rgb(200, 198, 198);
+}
 /* Container holding the map should not overlap with header */
 .map-container {
     display: flex;

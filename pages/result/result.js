@@ -56,9 +56,8 @@ $.ajax({
     success: (data) => {
         const latestRecords = {};
         const searchResultContainer = document.querySelector('.search-result');
-        searchResultContainer.innerHTML = ''; // 清空之前的搜索结果
+        searchResultContainer.innerHTML = '';
 
-        // 处理数据，筛选出最新记录
         data.result.records.forEach((record) => {
             const key = `${record.Site_Name}-${record.Fuel_Type}`;
             if (!latestRecords[key] || new Date(record.TransactionDateutc) > new Date(latestRecords[key].TransactionDateutc)) {
@@ -66,10 +65,8 @@ $.ajax({
             }
         });
 
-        // 将筛选后的结果保存到全局变量中
         allRecords = Object.values(latestRecords);
 
-        // 初始化分页
         renderPagination();
         renderResults(currentPage);
     },
@@ -78,18 +75,15 @@ $.ajax({
     }
 });
 
-// 渲染分页按钮
 function renderPagination() {
-    const totalPages = Math.ceil(allRecords.length / resultsPerPage); // 计算总页数
+    const totalPages = Math.ceil(allRecords.length / resultsPerPage);
     const paginationContainer = document.querySelector('.pagination');
-    paginationContainer.innerHTML = ''; // 清空分页按钮
+    paginationContainer.innerHTML = '';
 
-    // 如果只有一页，不显示分页控件
     if (totalPages <= 1) {
         return;
     }
 
-    // 创建第一页按钮
     const createPageButton = (label, pageNumber, isDisabled = false) => {
         const pageButton = document.createElement('button');
         pageButton.textContent = label;
@@ -100,24 +94,19 @@ function renderPagination() {
         pageButton.addEventListener('click', () => {
             currentPage = pageNumber;
             renderResults(currentPage);
-            renderPagination(); // 重新渲染分页按钮
+            renderPagination();
         });
         return pageButton;
     };
 
-    // 首页按钮
     paginationContainer.appendChild(createPageButton('First', 1, currentPage === 1));
 
-    // 上一页按钮
     paginationContainer.appendChild(createPageButton('Prev', currentPage - 1, currentPage === 1));
 
-    // 下一页按钮
     paginationContainer.appendChild(createPageButton('Next', currentPage + 1, currentPage === totalPages));
 
-    // 末页按钮
     paginationContainer.appendChild(createPageButton('Last', totalPages, currentPage === totalPages));
 
-    // 添加页码输入框和跳转按钮
     const inputContainer = document.createElement('div');
     inputContainer.classList.add('page-input-container');
     const pageInput = document.createElement('input');
@@ -125,7 +114,7 @@ function renderPagination() {
     pageInput.min = '1';
     pageInput.max = totalPages;
     pageInput.placeholder = 'Page';
-    pageInput.value = currentPage; // 当前页默认为输入框的值
+    pageInput.value = currentPage;
     pageInput.classList.add('page-input');
 
     const goButton = document.createElement('button');
@@ -136,7 +125,7 @@ function renderPagination() {
         if (goToPage >= 1 && goToPage <= totalPages) {
             currentPage = goToPage;
             renderResults(currentPage);
-            renderPagination(); // 刷新分页按钮
+            renderPagination();
         }
     });
 
@@ -147,16 +136,13 @@ function renderPagination() {
 
 
 
-// 渲染当前页的结果
 function renderResults(page) {
     const searchResultContainer = document.querySelector('.search-result');
-    searchResultContainer.innerHTML = ''; // 清空之前的搜索结果
-
+    searchResultContainer.innerHTML = '';
     const start = (page - 1) * resultsPerPage;
     const end = start + resultsPerPage;
-    const recordsToDisplay = allRecords.slice(start, end); // 取出当前页的记录
+    const recordsToDisplay = allRecords.slice(start, end);
 
-    // 渲染每个记录
     recordsToDisplay.forEach((record) => {
         const resultDiv = document.createElement('div');
         resultDiv.classList.add('result');
@@ -181,7 +167,6 @@ function renderResults(page) {
     });
 }
 
-// 根据站点名称获取对应的 logo
 const getLogoBasedOnSiteName = (siteName) => {
     const keywordLogoMapping = [
         { keyword: 'Coles', logo: '../../assets/images/logo/colesexpress-logo.jpg' },
