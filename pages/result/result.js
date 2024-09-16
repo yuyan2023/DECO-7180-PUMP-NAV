@@ -7,7 +7,7 @@ const distanceButton = document.getElementById('distance-button');
 const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql';
 
 let currentPage = 1;
-const resultsPerPage = 10;
+const resultsPerPage = 9;
 let allRecords = [];
 
 priceButton.addEventListener('click', function () {
