@@ -29,7 +29,6 @@ header {
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
     color: white;
-    padding: 10px 20px;
     position: fixed; /* Fixes the header at the top */
     top: 0; /* Zero distance from the top */
     left: 0;
@@ -53,11 +52,7 @@ header {
     color: white;
     text-decoration: none;
 }
-.button-group {
-    display: flex; /* Aligns children inline */
-    align-items: center; /* Centers children vertically */
-    gap: 10px; /* Spacing between the icon and the button */
-}
+
 .btn-circular {
     border: 2px solid white;
     background-color: transparent; /* Removes default styling */
