@@ -3,7 +3,6 @@ let isDistanceAscending = true;
 
 const priceButton = document.getElementById('price-button');
 const distanceButton = document.getElementById('distance-button');
-const typeButton = document.getElementById('fuel-type-button');
 
 const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql';
 
