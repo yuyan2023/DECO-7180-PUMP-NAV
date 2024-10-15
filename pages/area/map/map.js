@@ -6,8 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
+
     // Function to add markers to the map
     function addMarkers(data) {
+        const stationDetails = document.getElementById('station-details');
+        stationDetails.innerHTML = ''; // Clear previous details
+
         data.forEach(station => {
             const popupContent = `
                 <strong>${station.Site_Name}</strong><br/>
@@ -21,37 +25,41 @@ document.addEventListener('DOMContentLoaded', function() {
             L.marker([station.Site_Latitude, station.Site_Longitude])
                 .bindPopup(popupContent)
                 .addTo(map);
+
+            // Add station details to the list
+            const listItem = document.createElement('li');
+            listItem.innerHTML = popupContent;
+            stationDetails.appendChild(listItem);
         });
     }
 
 
     // Function to fetch gas stations based on selected suburb
     function fetchStations(suburb) {
-		var sql = encodeURIComponent(`SELECT * FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5" WHERE "Site_Suburb" = '${suburb}'`);
-		fetch(`https://www.data.qld.gov.au/api/3/action/datastore_search_sql?sql=${sql}`)
-			.then(response => response.json())
-			.then(json => {
-				if (json.result && json.result.records) {
-					// Assuming the suburb's data contains latitude and longitude
-					const firstRecord = json.result.records[0];
-					if (firstRecord && firstRecord.Site_Latitude && firstRecord.Site_Longitude) {
-						// Move the map to the new location
-						map.setView([firstRecord.Site_Latitude, firstRecord.Site_Longitude], 15); // 15 is the zoom level
-					}
-	
-					map.eachLayer(function(layer) { // Clear existing markers
-						if (layer instanceof L.Marker) {
-							map.removeLayer(layer);
-						}
-					});
-					addMarkers(json.result.records);
-				} else {
-					console.error('No records found or error in response:', json);
-				}
-			})
-			.catch(error => console.error('Error loading the data:', error));
-	}
+        var sql = encodeURIComponent(`SELECT * FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5" WHERE "Site_Suburb" = '${suburb}'`);
+        fetch(`https://www.data.qld.gov.au/api/3/action/datastore_search_sql?sql=${sql}`)
+            .then(response => response.json())
+            .then(json => {
+                if (json.result && json.result.records) {
+                    // Assuming the suburb's data contains latitude and longitude
+                    const firstRecord = json.result.records[0];
+                    if (firstRecord && firstRecord.Site_Latitude && firstRecord.Site_Longitude) {
+                        // Move the map to the new location
+                        map.setView([firstRecord.Site_Latitude, firstRecord.Site_Longitude], 15); // 15 is the zoom level
+                    }
 
+                    map.eachLayer(function(layer) { // Clear existing markers
+                        if (layer instanceof L.Marker) {
+                            map.removeLayer(layer);
+                        }
+                    });
+                    addMarkers(json.result.records);
+                } else {
+                    console.error('No records found or error in response:', json);
+                }
+            })
+            .catch(error => console.error('Error loading the data:', error));
+    }
     // Function to populate suburbs dropdown
     function populateSuburbs() {
         var sql = encodeURIComponent(`SELECT DISTINCT "Site_Suburb" FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5"`);
