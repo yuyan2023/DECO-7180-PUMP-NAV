@@ -1,12 +1,12 @@
-/* Ensuring the body and HTML fill the entire screen and are structured properly */
+/* Ensure the body and HTML fill the entire screen and are structured properly */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 
-/* Hero image covering the full view height */
+/* Hero image covering the full viewport height */
 #hero-image {
     background-image: url("../../assets/images/gas-station.jpg");
     background-size: cover;
@@ -24,9 +24,9 @@ header {
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
     color: white;
-    position: fixed; 
-    top: 0; 
-    z-index: 1000; /* Ensures the header stays on top */
+    position: fixed;
+    top: 0;
+    z-index: 1000; /* Ensure the header stays on top */
 }
 
 /* Flexbox for navbar layout */
@@ -51,74 +51,115 @@ header {
 
 .btn-circular, .btn-no-back {
     border: 2px solid white;
-    background-color: transparent; 
-    cursor: pointer; 
-    display: flex; 
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .btn-no-back {
-    background-color: gold; 
-    color: black; 
-    border-radius: 20px; 
+    background-color: gold;
+    color: black;
+    border-radius: 20px;
     padding: 8px 20px;
     font-weight: bold;
-    border: 2px solid black; 
+    border: 2px solid black;
 }
-
 
 /* Styling for the dropdown selector */
 select {
-    width: 20%; /* Adjusted width for better control */
-    margin: 1rem; /* Margin for spacing from map edges */
-    position: absolute; /* Absolute positioning */
-    top: 100px; /* Position below header */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust horizontal centering */
-    z-index: 1000; /* Ensure dropdown is above the map */
+    width: 20%;
+    margin: 1rem;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
     height: 50px;
     background-color: rgb(232, 229, 229);
+    border: 1px solid #363535;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(50, 49, 49, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+select:hover {
+    background-color: rgb(220, 220, 220);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Back button styling */
 .back-button {
-    width: 10%; /* Adjusted width for better control */
-    margin: 1rem; /* Margin for spacing from map edges */
-    position: absolute; /* Absolute positioning */
-    top: 100px; /* Position below header */
-    left: 10%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust horizontal centering */
-    z-index: 1000; /* Ensure dropdown is above the map */
+    width: 10%;
+    margin: 1rem;
+    position: absolute;
+    top: 100px;
+    left: 10%;
+    transform: translateX(-50%);
+    z-index: 1000;
     height: 50px;
-    background-color: rgb(200, 198, 198);
+    background-color: rgb(213, 213, 213);
+    border: 2px solid #2a2828;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
+
+.back-button:hover {
+    background-color: rgb(180, 180, 180);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 /* Container holding the map should not overlap with header */
 .map-container {
     display: flex;
-    flex-direction: row; /* Change to row to align items horizontally */
-    align-items: flex-start; /* Align items to the top */
-    padding-top: 60px; /* Space for header */
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 60px;
     width: 100%;
     height: 100%;
 }
 
 #map {
-    width: 70%; /* Adjusted width to make space for the station list */
-    height: 80vh; /* Adjusted height */
+    width: 70%;
+    height: 80vh;
     background-color: white;
-    box-shadow: rgba(0,0,0,0.5) 0 5px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Updated styles for station list */
 #station-list {
-    width: 30%; /* Width for the station list */
-    padding: 1rem;
-    background-color: #f9f9f9;
-    box-shadow: rgba(0,0,0,0.5) 0 5px 10px;
+    width: 30%;
+    height: 80vh;
     overflow-y: auto;
-    height: 80vh; /* Match the height of the map */
+    background-color: var(--bg);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
 }
 
 #station-list h2 {
+    color: var(--darkBlue);
+    font-size: 1.5rem;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 #station-details {
@@ -126,8 +167,73 @@ select {
     padding: 0;
 }
 
-#station-details li {
+.station-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.station-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.station-card h3 {
+    color: var(--darkBlue);
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.station-card p {
+    margin: 0.25rem 0;
+    color: var(--black);
+    font-size: 0.9rem;
+}
+
+.station-card p strong {
+    color: var(--primary);
+}
+
+.station-card .price {
+    font-size: 1.1rem;
+    color: var(--action);
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.station-card .last-updated {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+/* Scrollbar styling */
+#station-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+#station-list::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+#station-list::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .map-container {
+        flex-direction: column;
+    }
+
+    #map, #station-list {
+        width: 100%;
+        height: 50vh;
+    }
 }
