@@ -19,12 +19,16 @@
     <link rel="stylesheet" href="area.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" src="./area.js" defer></script>
 </head>
 
 <body>
     <header>
         <span class="logo text-shadow" tabindex="0">Pump Nav</span>
-        <nav class="navbar" aria-label="Main navigation">
+        <span class="hamburger" tabindex="0" role="button" aria-expanded="false" aria-controls="navbar">
+            <i class="bi bi-list"></i>
+        </span>
+        <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
             <ul class="navbar-list">
                 <li><a href="../../index.html" class="navbar-link">Home</a></li>
                 <li>
