@@ -16,15 +16,18 @@
     <link rel="stylesheet" href="../../css/layout.css">
     <link rel="stylesheet" href="../../css/components.css">
     <link rel="stylesheet" href="register.css">
-    <script type="module" src="./assets/jquery-3.7.1.min.js" defer></script>
-    <script type="module" src="./index.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" src="./register.js" defer></script>
 </head>
 
 <body>
     <div id="hero-image">
         <header>
             <span class="logo text-shadow" tabindex="0">Pump nav</span>
-            <nav class="navbar" aria-label="Main navigation">
+            <span class="hamburger" tabindex="0" role="button" aria-expanded="false" aria-controls="navbar">
+                <i class="bi bi-list"></i>
+            </span>
+            <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
                 <ul class="navbar-list">
                     <li><a href="../../index.html" class="navbar-link">Home</a></li>
                     <li>
