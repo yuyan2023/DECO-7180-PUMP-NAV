@@ -27,43 +27,50 @@
 <body>
 	<header>
 		<span class="logo text-shadow" tabindex="0">Pump Nav</span>
-		<nav class="navbar" role="navigation" aria-label="main navigation">
+		<span class="hamburger" tabindex="0" role="button" aria-expanded="false" aria-controls="navbar">
+			<i class="bi bi-list"></i>
+		</span>
+		<nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
 			<ul class="navbar-list">
-				<li><a href="#" class="navbar-link">Home</a></li>
-				<li>
-					<a href="./pages/result/result.html" class="navbar-link">Listings</a>
-				</li>
-				<li><a href="./pages/area/area.html" class="navbar-link">Area</a></li>
-				<li><a href="./pages/recommendation/recommendation.html" class="navbar-link">Recommendation</a></li>
+				<li class="text-shadow"><a href="#" class="navbar-link">Home</a></li>
+				<li class="text-shadow"><a href="./pages/result/result.html" class="navbar-link">Listings</a></li>
+				<li class="text-shadow"><a href="./pages/area/area.html" class="navbar-link">Area</a></li>
+				<li class="text-shadow"><a href="./pages/recommendation/recommendation.html"
+						class="navbar-link">Recommendation</a></li>
 			</ul>
 		</nav>
 		<div class="button-group">
-			<button class="btn-circular"><a href="./pages/login/login.html"><i class="bi bi-person"></i></a></button>
-			<!-- <button class="btn-no-back">All Stations</button> -->
+			<button class="btn-circular">
+				<a href="./pages/login/login.html" aria-label="Login">
+					<i class="bi bi-person"></i>
+				</a>
+			</button>
 		</div>
 	</header>
+
 	<main class="page-container">
 		<div id="hero-image">
 			<span class="pseudo-btn">LET US GUIDE YOUR WAY</span>
-			<h1>Discover the best place to fuel up,<br />wherever your are.</h1>
+			<h1>Discover the best place to fuel up,<br />wherever you are.</h1>
 			<form class="search-form" role="search" aria-label="website search">
-				<label for="search-input" class="visually-hidden">search gas station name or postcode</label>
+				<label for="search-input" class="visually-hidden">Search gas station name or postcode</label>
 				<input type="search" id="search-input" name="q" placeholder="Enter name, postcode..."
-					aria-label="search input" />
-				<button class="btn-no-back-border" type="button" aria-label="filters button" id="open-filter-btn">
+					aria-label="Search input" />
+				<button class="btn-no-back-border" type="button" aria-label="Filter options" id="open-filter-btn">
 					Filter
 				</button>
-				<button class="btn-circular-yellow" type="button" id="search-btn" aria-label="search button">
+				<button class="btn-circular-yellow" type="button" id="search-btn" aria-label="Search">
 					<i class="bi bi-search"></i>
 				</button>
 			</form>
 		</div>
 	</main>
-	<div id="filter-popup" class="modal">
+
+	<div id="filter-popup" class="modal" role="dialog" aria-labelledby="filter-popup-header" aria-hidden="true">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2>Filters</h2>
-				<i class="close bi bi-x-lg"></i>
+				<h2 id="filter-popup-header">Filters</h2>
+				<button class="close" aria-label="Close filters"><i class="bi bi-x-lg"></i></button>
 			</div>
 			<form id="filters-form">
 				<div class="modal-body">
@@ -71,9 +78,11 @@
 					<div class="filter-group">
 						<input type="hidden" name="min-price">
 						<label for="price-range">Price Range</label>
-						<input type="range" id="price-range" name="price" step="1" class="slider">
-						<span></span>
+						<input type="range" id="price-range" name="price" step="1" class="slider" aria-valuemin="0"
+							aria-valuemax="100" aria-valuenow="50">
+						<span id="price-range-output"></span>
 					</div>
+
 					<!-- Petrol Brand -->
 					<div class="filter-group">
 						<label>Petrol Brand</label>
@@ -82,6 +91,7 @@
 							<label for="brand-all" class="filter-button">All</label>
 						</div>
 					</div>
+
 					<!-- Petrol Type -->
 					<div class="filter-group">
 						<label>Petrol Type</label>
@@ -90,14 +100,15 @@
 							<label for="type-all" class="filter-button">All</label>
 						</div>
 					</div>
-					<!-- Distance Range -->
+
 					<div class="filter-group">
 						<label for="distance-range">Distance Range</label>
 						<input type="range" id="distance-range" name="distance" min="0" max="10" step="1" value="10"
-							class="slider">
-						<span>0km - 10km</span>
+							class="slider" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
+						<span id="distance-range-output">0km - 10km</span>
 					</div>
 				</div>
+
 				<div class="modal-footer">
 					<button type="button" class="btn-text" id="reset-btn">Reset Filters</button>
 					<button type="submit" class="btn-primary" id="modal-search-btn">Search</button>
@@ -105,9 +116,7 @@
 			</form>
 		</div>
 	</div>
-	<div id="filter-popup" class="modal">
-	</div>
-	</div>
+
 </body>
 
 </html>
