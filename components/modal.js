@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const $modal = $('.modal');
 
-    if($modal.length === 0){
+    if ($modal.length === 0) {
         return
     }
 
