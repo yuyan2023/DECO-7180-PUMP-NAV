@@ -4,4 +4,6 @@ const SQL = {
     priceRange: 'SELECT MAX("Price") AS max, MIN("Price") AS min FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5" WHERE "Price" < 5000'
 };
 
-export { SQL };
+const SEARCHED_DATA = "searched data";
+
+export { SQL, SEARCHED_DATA };

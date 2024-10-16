@@ -1,7 +1,7 @@
 import './modal.js';
 import { fetchAllBrand, fetchAllType, fetchPriceRange } from './api.js';
 import { getPathSegment, cacheData, convert2indices } from './utils.js';
-import { SQL } from './constant.js';
+import { SQL, SEARCHED_DATA } from './constant.js';
 
 const setupModal = () => {
     const $modal = $('#filter-popup');
@@ -121,6 +121,15 @@ const generateTypes = data => {
     });
 }
 
+const cacheSearchedData = newData => {
+    const cachedData = cacheData(SEARCHED_DATA) || [];
+    cachedData.unshift(newData);
+    if (cachedData.length >= 4) {
+        cachedData.pop();
+    }
+    cacheData(SEARCHED_DATA, cachedData);
+};
+
 const bindSearch = () => {
     $("#search-btn, #modal-search-btn").click(async e => {
         e.preventDefault();
@@ -139,17 +148,22 @@ const bindSearch = () => {
         const type = $('#type-all').prop('checked') ? -1 : convert2indices(checkedType, allTypeData);
         const maxDistance = $('#distance-range').val();
 
-        const params = new URLSearchParams({
+        const searchData = {
             q,
             brand,
             type,
             price: `${minPrice}-${maxPrice}`,
             distance: `0-${maxDistance}`
-        });
-
-        const targetUrl = '/pages/result/result.html?' + params.toString();
-        window.location.assign(getPathSegment() + targetUrl);
+        };
+        cacheSearchedData(searchData);
+        nav2result(searchData);
     })
+}
+
+const nav2result = searchData => {
+    const params = new URLSearchParams(searchData);
+    const targetUrl = '/pages/result/result.html?' + params.toString();
+    window.location.assign(getPathSegment() + targetUrl);
 }
 
 const bindReset = () => {
@@ -178,3 +192,5 @@ $(document).ready(() => {
     bindSearch();
     bindReset();
 });
+
+export { nav2result };
