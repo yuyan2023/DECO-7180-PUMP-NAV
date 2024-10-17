@@ -12,6 +12,46 @@ let currentPage = 1;
 const resultsPerPage = 9;
 let allRecords = [];
 
+let userLocation = null;
+
+// Get user location
+function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    if ("geolocation" in navigator) {
+      navigator.permissions.query({name:'geolocation'}).then(function(result) {
+        if (result.state === 'granted') {
+          // Permission already granted, get location
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        } else if (result.state === 'prompt') {
+          // Show prompt
+          console.log("Please allow access to your location");
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        } else if (result.state === 'denied') {
+          // Permission denied
+          console.log("Location access denied. Please enable location access in your browser settings");
+          reject(new Error("Location access denied"));
+        }
+      });
+    } else {
+      console.error("This browser doesn't support geolocation");
+      reject(new Error("Geolocation not supported"));
+    }
+  });
+}
+
+// Calculate distance between two points (using Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Earth's radius in km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
 priceButton.addEventListener('click', function () {
     isPriceAscending = !isPriceAscending;
 
@@ -35,10 +75,12 @@ distanceButton.addEventListener('click', function () {
     } else {
         distanceButton.textContent = 'Distance ▼';
     }
+
+    handleSortByDistance();
 });
 
 let sqlQuery = `
-    SELECT "Site_Name", "Fuel_Type", "TransactionDateutc", "Price", "Site_Post_Code", "Sites_Address_Line_1", "Site_Suburb", "Site_Latitude", "Site_Longitude"
+    SELECT "Site_Name", "Site_Brand", "Sites_Address_Line_1", "Site_Suburb", "Site_State", "Site_Post_Code", "Site_Latitude", "Site_Longitude", "Fuel_Type", "Price"
     FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5" AS main
 `;
 
@@ -136,30 +178,31 @@ function renderResults(page) {
     recordsToDisplay.forEach((record) => {
         const resultDiv = document.createElement('div');
         resultDiv.classList.add('result');
-        const targetUrl = './detail-pages/detail.html';
-        let siteLogo = getLogoBasedOnSiteName(record.Site_Name);
-        const fullAddress = `${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}`;
-        const minPrice = 1.039;
-        const maxPrice = 2.500;
-        let priceInLiters = (record.Price / 1000).toFixed(3);
-        priceInLiters = Math.max(minPrice, Math.min(maxPrice, parseFloat(priceInLiters))).toFixed(3);
-        const priceDisplay = `AUD ${priceInLiters} / L`;
-        const fuelType = record.Fuel_Type;
+        const targetUrl = '../detail/detail.html';
 
         resultDiv.addEventListener('click', function () {
-            window.location.href = targetUrl;
+            // 将所有数据编码为 URL 参数
+            const params = new URLSearchParams(record).toString();
+            window.location.href = `${targetUrl}?${params}`;
         });
+
+        // Add distance display
+        let distanceDisplay = '';
+        if (record.distance !== undefined) {
+            distanceDisplay = `<p class="site-distance">${record.distance.toFixed(2)} km</p>`;
+        }
 
         resultDiv.innerHTML = `
             <div class="site-logo">
-                <img src="${siteLogo}" alt="${record.Site_Name} Logo">
+                <img src="${getLogoBasedOnSiteName(record.Site_Name)}" alt="${record.Site_Name} Logo">
             </div>
             <div class="site-info">
                 <p class="site-name">${record.Site_Name}</p>
-                <p class="site-address">${fullAddress}</p>
+                <p class="site-address">${record.Sites_Address_Line_1}, ${record.Site_Suburb}, ${record.Site_Post_Code}</p>
             </div>
-            <p class="fuel-type">${fuelType}</p>
-            <p class="site-price">${priceDisplay}</p>
+            <p class="fuel-type">${record.Fuel_Type}</p>
+            <p class="site-price">AUD ${(record.Price / 1000).toFixed(3)} / L</p>
+            ${distanceDisplay}
         `;
 
         searchResultContainer.appendChild(resultDiv);
@@ -173,14 +216,40 @@ function sortResultsByPrice(ascending) {
         const priceB = parseFloat(b.Price);
 
         if (ascending) {
-            return priceA - priceB;  // 升序
+            return priceA - priceB;  // Ascending
         } else {
-            return priceB - priceA;  // 降序
+            return priceB - priceA;  // Descending
         }
     });
 
-    // 排序后重新渲染结果
+    // Re-render results after sorting
     renderResults(currentPage);
+}
+
+// Distance sorting function
+function sortResultsByDistance(ascending) {
+    if (!userLocation) {
+        alert("Unable to get your location. Please allow location access and refresh the page.");
+        return;
+    }
+
+    allRecords.forEach(record => {
+        record.distance = calculateDistance(
+            userLocation.lat, userLocation.lng,
+            parseFloat(record.Site_Latitude), parseFloat(record.Site_Longitude)
+        );
+    });
+
+    allRecords.sort((a, b) => {
+        if (ascending) {
+            return a.distance - b.distance;
+        } else {
+            return b.distance - a.distance;
+        }
+    });
+
+    renderResults(currentPage);
+    renderPagination();
 }
 
 const getLogoBasedOnSiteName = (siteName) => {
@@ -265,3 +334,26 @@ const getLogoBasedOnSiteName = (siteName) => {
 
     return '';
 };
+
+// Get user location when the page loads
+window.addEventListener('load', () => {
+    getUserLocation().then(() => {
+        console.log("User location acquired");
+    }).catch(error => {
+        console.error("Failed to get user location:", error);
+    });
+});
+
+// Call this function when user interacts
+function handleSortByDistance() {
+  getUserLocation().then(position => {
+    userLocation = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    sortResultsByDistance(isDistanceAscending);
+  }).catch(error => {
+    console.error("Failed to get user location:", error);
+    alert("Unable to get your location. Please allow location access and try again.");
+  });
+}
