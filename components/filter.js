@@ -162,8 +162,9 @@ const bindSearch = () => {
 
 const nav2result = searchData => {
     const params = new URLSearchParams(searchData);
+    const origin = window.location.origin;
     const targetUrl = '/pages/result/result.html?' + params.toString();
-    window.location.assign(getPathSegment() + targetUrl);
+    window.location.href = origin + getPathSegment() + targetUrl;
 }
 
 const bindReset = () => {

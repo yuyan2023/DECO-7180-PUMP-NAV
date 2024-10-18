@@ -1,4 +1,7 @@
 import "../../components/nav.js"
+import "../../components/filter.js"
+import { getUrlParams, cacheData } from "../../components/utils.js"
+import { SQL } from "../../components/constant.js"
 
 let isPriceAscending = true;
 let isDistanceAscending = true;
@@ -14,42 +17,51 @@ let allRecords = [];
 
 let userLocation = null;
 
+function a() {
+    // all = -1
+    const params = getUrlParams()
+    const allBrand = cacheData(SQL.allBrand)
+    const allType = cacheData(SQL.allType)
+    console.log(params, allBrand, allType)
+}
+a()
+
 // Get user location
 function getUserLocation() {
-  return new Promise((resolve, reject) => {
-    if ("geolocation" in navigator) {
-      navigator.permissions.query({name:'geolocation'}).then(function(result) {
-        if (result.state === 'granted') {
-          // Permission already granted, get location
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        } else if (result.state === 'prompt') {
-          // Show prompt
-          console.log("Please allow access to your location");
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        } else if (result.state === 'denied') {
-          // Permission denied
-          console.log("Location access denied. Please enable location access in your browser settings");
-          reject(new Error("Location access denied"));
+    return new Promise((resolve, reject) => {
+        if ("geolocation" in navigator) {
+            navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+                if (result.state === 'granted') {
+                    // Permission already granted, get location
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                } else if (result.state === 'prompt') {
+                    // Show prompt
+                    console.log("Please allow access to your location");
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                } else if (result.state === 'denied') {
+                    // Permission denied
+                    console.log("Location access denied. Please enable location access in your browser settings");
+                    reject(new Error("Location access denied"));
+                }
+            });
+        } else {
+            console.error("This browser doesn't support geolocation");
+            reject(new Error("Geolocation not supported"));
         }
-      });
-    } else {
-      console.error("This browser doesn't support geolocation");
-      reject(new Error("Geolocation not supported"));
-    }
-  });
+    });
 }
 
 // Calculate distance between two points (using Haversine formula)
 function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth's radius in km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
 }
 
 priceButton.addEventListener('click', function () {
@@ -346,14 +358,14 @@ window.addEventListener('load', () => {
 
 // Call this function when user interacts
 function handleSortByDistance() {
-  getUserLocation().then(position => {
-    userLocation = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    sortResultsByDistance(isDistanceAscending);
-  }).catch(error => {
-    console.error("Failed to get user location:", error);
-    alert("Unable to get your location. Please allow location access and try again.");
-  });
+    getUserLocation().then(position => {
+        userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        sortResultsByDistance(isDistanceAscending);
+    }).catch(error => {
+        console.error("Failed to get user location:", error);
+        alert("Unable to get your location. Please allow location access and try again.");
+    });
 }

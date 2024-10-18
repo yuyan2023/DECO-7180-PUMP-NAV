@@ -17,4 +17,17 @@ const convert2indices = (selected, data) => {
     return selected.map(item => data.indexOf(item));
 }
 
-export { getPathSegment, cacheData, convert2indices }
+const getUrlParams = () => {
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+    const result = {};
+    urlParams.forEach((value, key) => {
+        result[key] = value;
+    });
+    
+    return result;
+}
+
+export { getPathSegment, cacheData, convert2indices, getUrlParams }
