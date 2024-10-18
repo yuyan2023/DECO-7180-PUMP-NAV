@@ -297,3 +297,115 @@ header {
     font-size: 1rem;
     color: #666;
 }
+
+@media screen and (max-width: 768px) {
+  .search-filter-bar {
+    flex-direction: column;
+    width: 90%;
+    margin-top: 80px;
+  }
+
+  .search-bar {
+    width: 100%;
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  #search-input {
+    width: 100%;
+    padding-right: 40px;
+  }
+
+  .btn-circular-yellow {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-bar {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-bar p {
+    font-size: 0.98rem;
+  }
+
+  .filter-button {
+    width: 45%;
+    font-size: 0.7rem;
+  }
+
+  .search-result {
+    width: 90%;
+    height: calc(100vh - 260px); 
+    margin-top: 5px;
+  }
+
+  .result {
+    height: auto;
+    padding-bottom: 60px;
+  }
+
+  .site-logo {
+    width: 60px;
+    height: 60px;
+    top: 5px;
+    left: 10px;
+  }
+
+  .site-info {
+    left: 95px;  
+    top: 10px;
+  }
+
+  .site-name {
+    font-size: 0.9rem;
+  }
+
+  .site-address {
+    margin-top: 21px;  
+    font-size: 0.75rem;
+  }
+
+  .site-price {
+    top: auto;
+    bottom: 0px;
+    right: 10px;
+    font-size: 1rem;
+  }
+
+  .fuel-type {
+    top: 5px;
+    right: 10px;
+    font-size: 0.75rem;
+  }
+
+  .site-distance {
+    top: auto;
+    bottom: 25px;  
+    right: 10px;
+    font-size: 0.8rem;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .page-button, .go-button {
+    width: 40px;
+    height: 1.8rem;
+    font-size: 0.7rem;
+  }
+
+  .page-input {
+    width: 40px;
+  }
+}
