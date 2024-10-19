@@ -1,6 +1,5 @@
-/* Ensure the body and HTML fill the entire screen and are structured properly */
-html,
-body {
+/* Base styles for full-screen layout */
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -8,20 +7,7 @@ body {
     background-color: #f0f2f5;
 }
 
-/* Hero image covering the full viewport height */
-#hero-image {
-    background-image: url("../../assets/images/gas-station.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    width: 100vw;
-}
-
-/* Header styles for fixed positioning at the top */
+/* Header styles */
 header {
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
@@ -29,16 +15,15 @@ header {
     position: fixed;
     top: 0;
     z-index: 1000;
-    /* Ensure the header stays on top */
 }
 
-/* Flexbox for navbar layout */
+/* Navbar layout */
 .navbar {
     display: flex;
     justify-content: space-between;
+    padding: 1rem;
 }
 
-/* Removing list styles and adding spacing for navbar items */
 .navbar-list {
     list-style: none;
     display: flex;
@@ -52,8 +37,8 @@ header {
     text-decoration: none;
 }
 
-.btn-circular,
-.btn-no-back {
+/* Button styles */
+.btn-circular, .btn-no-back {
     border: 2px solid white;
     background-color: transparent;
     cursor: pointer;
@@ -71,8 +56,8 @@ header {
     border: 2px solid black;
 }
 
-/* Styling for the dropdown selector */
-select {
+/* Suburb selector styles */
+#suburbSelector {
     width: 20%;
     margin: 1rem;
     position: absolute;
@@ -90,18 +75,14 @@ select {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-select:hover {
+#suburbSelector:hover, #suburbSelector:focus {
     background-color: rgb(220, 220, 220);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-select:focus {
     outline: none;
     border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Back button styling */
+/* Back button styles */
 .back-button {
     width: 10%;
     margin: 1rem;
@@ -121,18 +102,14 @@ select:focus {
     cursor: pointer;
 }
 
-.back-button:hover {
+.back-button:hover, .back-button:focus {
     background-color: rgb(180, 180, 180);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.back-button:focus {
     outline: none;
     border-color: #007BFF;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Container holding the map should not overlap with header */
+/* Map container layout */
 .map-container {
     display: flex;
     flex-direction: row;
@@ -156,7 +133,7 @@ select:focus {
     margin-right: 1rem;
 }
 
-/* Updated styles for station list */
+/* Station list styles */
 #station-list {
     flex: 3;
     height: 100%;
@@ -186,6 +163,7 @@ select:focus {
     overflow-y: auto;
 }
 
+/* Station card styles */
 .station-card {
     background-color: #f8f9fa;
     border-radius: 12px;
@@ -265,8 +243,7 @@ select:focus {
         flex-direction: column;
     }
 
-    #map,
-    #station-list {
+    #map, #station-list {
         flex: none;
         width: 100%;
         height: 50%;
@@ -285,7 +262,7 @@ select:focus {
         padding: 0.5rem;
     }
 
-    select {
+    #suburbSelector {
         width: 60%;
         top: 60px;
     }
@@ -295,4 +272,17 @@ select:focus {
         left: 15%;
         top: 60px;
     }
+}
+
+/* Accessibility helper class */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
