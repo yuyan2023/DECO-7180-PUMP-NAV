@@ -169,7 +169,8 @@
 	gap: 1rem;
 }
 
-.modal .filter-group>label {
+.modal .filter-group>label,
+.modal .filter-group>span {
 	font-size: 1rem;
 	font-weight: bold;
 }

@@ -30,6 +30,7 @@
 		<span class="hamburger" tabindex="0" role="button" aria-expanded="false" aria-controls="navbar">
 			<i class="bi bi-list"></i>
 		</span>
+		<!-- navigation HTML -->
 		<nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
 			<ul class="navbar-list">
 				<li class="text-shadow"><a href="#" class="navbar-link">Home</a></li>
@@ -70,6 +71,7 @@
 		</div>
 	</main>
 
+	<!-- filters popup content -->
 	<div id="filter-popup" class="modal" role="dialog" aria-labelledby="filter-popup">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -89,7 +91,7 @@
 
 					<!-- Petrol Brand -->
 					<div class="filter-group">
-						<label>Petrol Brand</label>
+						<label for="brand-all">Petrol Brand</label>
 						<div class="button-group" id="form-petrol-brand">
 							<input type="checkbox" id="brand-all" value="all" checked>
 							<label for="brand-all" class="filter-button">All</label>
@@ -98,7 +100,7 @@
 
 					<!-- Petrol Type -->
 					<div class="filter-group">
-						<label>Petrol Type</label>
+						<label for="type-all">Petrol Type</label>
 						<div class="button-group" id="form-petrol-type">
 							<input type="checkbox" id="type-all" value="all" checked>
 							<label for="type-all" class="filter-button">All</label>

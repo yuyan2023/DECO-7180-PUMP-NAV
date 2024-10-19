@@ -3,15 +3,18 @@ import { fetchAllBrand, fetchAllType, fetchPriceRange } from './api.js';
 import { getPathSegment, cacheData, convert2indices } from './utils.js';
 import { SQL, SEARCHED_DATA } from './constant.js';
 
+// Setup modal functionality for filter popup
 const setupModal = () => {
     const $modal = $('#filter-popup');
     const $btn = $('#open-filter-btn');
 
+    // Show modal when filter button is clicked
     $btn.click(function () {
         $modal.show();
     });
 }
 
+// Fetch and cache all brand data, returning from cache if available
 const getAllBrandData = async () => {
     let result = [];
     const cachedData = cacheData(SQL.allBrand);
@@ -25,6 +28,7 @@ const getAllBrandData = async () => {
     return result;
 }
 
+// Fetch and cache all type data, returning from cache if available
 const getAllTypeData = async () => {
     let result = [];
     const cachedData = cacheData(SQL.allType);
@@ -38,7 +42,7 @@ const getAllTypeData = async () => {
     return result;
 }
 
-// generate options for each filter from backend data
+// Generate filter options from backend data
 const generateFilters = async () => {
     const priceRange = await fetchPriceRange();
     const allBrand = await getAllBrandData();
@@ -50,24 +54,28 @@ const generateFilters = async () => {
     generateTypes(allTypes);
 }
 
+// Setup price range input field based on data
 const setupPriceRangeInput = priceRange => {
-    const { max, min } = priceRange[0]
+    const { max, min } = priceRange[0];
     $('input[name="min-price"]').val(min);
     const $input = $('#price-range');
     $input.next().text(`AUD $${min} - AUD $${max}`);
     $input.attr({ min, max, value: max }).bind('input', () => {
         const value = $input.val();
         $input.next().text(`AUD $${min} - AUD $${value}`);
-    })
+    });
 }
+
+// Setup distance range input field
 const setupDistanceRangeInput = () => {
     const $input = $('#distance-range');
     $input.bind('input', () => {
         const value = $input.val();
         $input.next().text(`0km - ${value}km`);
-    })
+    });
 }
 
+// Generate brand filter options
 const generateBrands = data => {
     const $all = $("#brand-all");
     $all.click(() => {
@@ -76,7 +84,7 @@ const generateBrands = data => {
         } else {
             $('input[name="brand"]').prop('checked', false);
         }
-    })
+    });
 
     const clickHandler = () => {
         if ($('input[name="brand"]:checked').length == 8) {
@@ -84,16 +92,17 @@ const generateBrands = data => {
         } else {
             $all.prop('checked', false);
         }
-    }
+    };
     const $container = $("#form-petrol-brand");
     data.splice(0, 8).forEach(brand => {
-        const $span = $(`<span><input type="checkbox" name="brand" checked value="${brand}"></span>`);
+        const $span = $(`<span><input type="checkbox" name="brand" checked value="${brand}" id="brand-${brand}"></span>`);
         $span.click(clickHandler);
-        $span.append(`<label for="${brand}" class="filter-button">${brand}</label>`);
+        $span.append(`<label for="brand-${brand}" class="filter-button">${brand}</label>`);
         $container.append($span);
     });
 }
 
+// Generate fuel type filter options
 const generateTypes = data => {
     const $all = $("#type-all");
     $all.click(() => {
@@ -102,7 +111,7 @@ const generateTypes = data => {
         } else {
             $('input[name="type"]').prop('checked', false);
         }
-    })
+    });
 
     const clickHandler = () => {
         if ($('input[name="type"]:checked').length == data.length) {
@@ -110,17 +119,18 @@ const generateTypes = data => {
         } else {
             $all.prop('checked', false);
         }
-    }
+    };
 
     const $container = $("#form-petrol-type");
     data.forEach(type => {
-        const $span = $(`<span><input type="checkbox" name="type" checked value="${type}"></span>`);
+        const $span = $(`<span><input type="checkbox" name="type" checked value="${type}" id="type-${type}"></span>`);
         $span.click(clickHandler);
-        $span.append(`<label for="${type}" class="filter-button">${type}</label>`);
+        $span.append(`<label for="type-${type}" class="filter-button">${type}</label>`);
         $container.append($span);
     });
 }
 
+// Cache searched data to session storage
 const cacheSearchedData = newData => {
     const cachedData = cacheData(SEARCHED_DATA) || [];
     cachedData.unshift(newData);
@@ -130,6 +140,7 @@ const cacheSearchedData = newData => {
     cacheData(SEARCHED_DATA, cachedData);
 };
 
+// Handle search button click and prepare search data
 const bindSearch = () => {
     $("#search-btn, #modal-search-btn").click(async e => {
         e.preventDefault();
@@ -141,7 +152,6 @@ const bindSearch = () => {
         const checkedType = $('input[name="type"]:checked').map((index, item) => item.value).get();
 
         const q = $('#search-input').val();
-
         const minPrice = $('input[name="min-price"]').val();
         const maxPrice = $('#price-range').val();
         const brand = $('#brand-all').prop('checked') ? -1 : convert2indices(checkedBrand, allBrandData);
@@ -157,9 +167,10 @@ const bindSearch = () => {
         };
         cacheSearchedData(searchData);
         nav2result(searchData);
-    })
+    });
 }
 
+// Navigate to result page with search parameters
 const nav2result = searchData => {
     const params = new URLSearchParams(searchData);
     const origin = window.location.origin;
@@ -167,6 +178,7 @@ const nav2result = searchData => {
     window.location.href = origin + getPathSegment() + targetUrl;
 }
 
+// Bind reset functionality to reset filter values
 const bindReset = () => {
     $("#reset-btn").click(() => {
         const $price = $('#price-range');
@@ -187,6 +199,7 @@ const bindReset = () => {
     });
 }
 
+// Initialize filter functionality on document ready
 $(document).ready(() => {
     setupModal();
     generateFilters();
