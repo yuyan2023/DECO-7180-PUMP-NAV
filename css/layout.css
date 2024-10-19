@@ -40,6 +40,7 @@ header .navbar .navbar-list {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 20px;
 }
 
 header .navbar .navbar-link {

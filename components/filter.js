@@ -175,7 +175,11 @@ const nav2result = searchData => {
     const params = new URLSearchParams(searchData);
     const origin = window.location.origin;
     const targetUrl = '/pages/result/result.html?' + params.toString();
-    window.location.href = origin + getPathSegment() + targetUrl;
+    if (window.location.pathname.includes('/result.html')) {
+        window.location.replace(targetUrl)
+    } else {
+        window.location.href = origin + getPathSegment() + targetUrl;
+    }
 }
 
 // Bind reset functionality to reset filter values
