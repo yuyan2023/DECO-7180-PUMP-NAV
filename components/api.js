@@ -5,17 +5,21 @@ const FUEL_DATA_API_SQL = "https://www.data.qld.gov.au/api/3/action/datastore_se
 
 // Fetch data from the API using the provided SQL query
 const fetchData = async data => {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: FUEL_DATA_API_SQL,
-            data,
-            type: "get",
-            success: (data) => {
-                resolve(data.result.records);
-            },
-            error: (jqXHR, textStatus, errorThrown) => reject(errorThrown)
-        });
-    });
+    try {
+        const response = await fetch(`${FUEL_DATA_API_SQL}?sql=${data.sql}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const jsonData = await response.json();
+        if (jsonData.success) {
+            return jsonData.result.records;
+        } else {
+            throw new Error(jsonData.error.message);
+        }
+    } catch (error) {
+        console.error("Error in fetchData:", error);
+        throw error;
+    }
 }
 
 // Fetch all distinct brands from the data
@@ -33,4 +37,4 @@ const fetchPriceRange = async () => {
     return await fetchData({ sql: SQL.priceRange });
 }
 
-export { fetchAllBrand, fetchAllType, fetchPriceRange };
+export { fetchData, fetchAllBrand, fetchAllType, fetchPriceRange };
