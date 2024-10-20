@@ -94,7 +94,7 @@ function getBackgroundImage(index) {
     return backgroundImages[index % backgroundImages.length];
 }
 
-// 页面加载时调用
+// load recommendations when the page is loaded
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const userData = { searchHistory: getUserSearchHistory() };
