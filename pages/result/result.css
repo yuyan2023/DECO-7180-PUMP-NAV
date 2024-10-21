@@ -26,16 +26,19 @@ header {
 }
 
 #search-input {
-    width: 80%;
     border-radius: 5rem;
     height: 2.5rem;
     padding: 0 2rem;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    flex: 1;
 }
 
 .search-bar {
-    width: 40%;
+    flex: 1;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .sort-bar {
@@ -191,7 +194,7 @@ header {
 }
 
 .fuel-type {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     position: absolute;
     right: 45px;
     top: 5px;
@@ -301,118 +304,114 @@ header {
 }
 
 @media screen and (max-width: 768px) {
-  .search-filter-bar {
-    flex-direction: column;
-    width: 90%;
-    margin-top: 80px;
-  }
+    .search-filter-bar {
+        flex-direction: column;
+        width: 90%;
+        margin-top: 80px;
+    }
 
-  .search-bar {
-    width: 100%;
-    position: relative;
-    margin-bottom: 15px;
-  }
+    .search-bar {
+        width: 100%;
+        position: relative;
+        margin-bottom: 15px;
+    }
 
-  #search-input {
-    width: 100%;
-    padding-right: 40px;
-  }
+    #search-input {
+        padding-right: 40px;
+    }
 
-  .btn-circular-yellow {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    .btn-circular-yellow {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-  .filter-bar {
-    width: 100%;
-    justify-content: space-between;
-  }
+    .sort-bar {
+        width: 100%;
+        justify-content: space-between;
+    }
 
-  .filter-bar p {
-    font-size: 0.98rem;
-  }
+    .filter-bar p {
+        font-size: 0.98rem;
+    }
 
-  .filter-btn {
-    width: 45%;
-    font-size: 0.7rem;
-  }
+    .filter-btn {
+        width: 45%;
+        font-size: 0.7rem;
+    }
 
-  .search-result {
-    width: 90%;
-    min-height: 200px;
-    max-height: calc(100vh - 260px);
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
+    .search-result {
+        width: 90%;
+        min-height: 200px;
+        max-height: calc(100vh - 260px);
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-  .result {
-    height: auto;
-    padding-bottom: 60px;
-    flex-shrink: 0;
-  }
+    .result {
+        height: auto;
+        padding-bottom: 60px;
+        flex-shrink: 0;
+    }
 
-  .site-logo {
-    width: 60px;
-    height: 60px;
-    top: 5px;
-    left: 10px;
-  }
+    .site-logo {
+        width: 60px;
+        height: 60px;
+        top: 5px;
+        left: 10px;
+    }
 
-  .site-info {
-    left: 95px;  
-    top: 10px;
-  }
+    .site-info {
+        left: 95px;
+        top: 10px;
+    }
 
-  .site-name {
-    font-size: 0.9rem;
-  }
+    .site-name {
+        font-size: 0.9rem;
+    }
 
-  .site-address {
-    margin-top: 21px;  
-    font-size: 0.75rem;
-  }
+    .site-address {
+        margin-top: 21px;
+        font-size: 0.75rem;
+    }
 
-  .site-price {
-    top: auto;
-    bottom: 0px;
-    right: 10px;
-    font-size: 1rem;
-  }
+    .site-price {
+        top: auto;
+        bottom: 0px;
+        right: 10px;
+        font-size: 1rem;
+    }
 
-  .fuel-type {
-    top: 5px;
-    right: 10px;
-    font-size: 0.75rem;
-  }
+    .fuel-type {
+        top: 5px;
+        right: 10px;
+        font-size: 0.75rem;
+    }
 
-  .site-distance {
-    top: auto;
-    bottom: 25px;  
-    right: 10px;
-    font-size: 0.8rem;
-  }
+    .site-distance {
+        top: auto;
+        bottom: 25px;
+        right: 10px;
+        font-size: 0.8rem;
+    }
 
-  .pagination {
-    flex-wrap: wrap;
-  }
+    .pagination {
+        flex-wrap: wrap;
+    }
 
-  .page-button, .go-button {
-    width: 40px;
-    height: 1.8rem;
-    font-size: 0.7rem;
-  }
+    .page-button,
+    .go-button {
+        width: 40px;
+        height: 1.8rem;
+        font-size: 0.7rem;
+    }
 
-  .page-input {
-    width: 40px;
-  }
+    .page-input {
+        width: 40px;
+    }
 }
