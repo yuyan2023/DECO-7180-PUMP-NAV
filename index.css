@@ -161,34 +161,3 @@
 	white-space: nowrap;
 	padding: 0.2rem 0;
 }
-
-.modal .filter-group {
-	margin-bottom: 2rem;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
-.modal .filter-group>label,
-.modal .filter-group>span {
-	font-size: 1rem;
-	font-weight: bold;
-}
-
-.modal .filter-group span {
-	font-size: 0.8rem;
-}
-
-.modal .button-group {
-	display: flex;
-	gap: 10px;
-	flex-wrap: wrap;
-}
-
-.modal .slider {
-	width: 100%;
-}
-
-.modal .modal-footer {
-	margin-top: 20px;
-}
