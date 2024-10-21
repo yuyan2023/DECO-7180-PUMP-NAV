@@ -56,9 +56,9 @@ const generateFilters = async () => {
 }
 
 // Setup price range input field based on data
-const setupPriceRangeInput = (priceRangeData, priceRangeURL) => {
-    const [minURL, maxURL] = priceRangeURL.split("-");
+const setupPriceRangeInput = (priceRangeData, priceRangeURL="") => {
     const { max, min } = priceRangeData[0];
+    const [minURL=min, maxURL=max] = priceRangeURL.split("-");
 
     $('input[name="min-price"]').val(min);
     const $input = $('#price-range');
@@ -71,8 +71,8 @@ const setupPriceRangeInput = (priceRangeData, priceRangeURL) => {
 }
 
 // Setup distance range input field
-const setupDistanceRangeInput = distanceRange => {
-    const [min, max] = distanceRange.split("-");
+const setupDistanceRangeInput = (distanceRange="") => {
+    const [min, max=10] = distanceRange.split("-");
     const $input = $('#distance-range');
     $input.val(max)
     $input.bind('input', () => {

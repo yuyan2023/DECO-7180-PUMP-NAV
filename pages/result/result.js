@@ -98,17 +98,19 @@ const filterData = data => {
 
     return data.filter(i => {
         // filter brand data
-        if (brand === "-1") { return true }
+        if (brand === "-1" || !brand) { return true }
         return allBrand.includes(i.Site_Brand)
     }).filter(i => {
         // filter type data
-        if (type === "-1") { return true }
+        if (type === "-1" || !brand) { return true }
         return allType.includes(i.Site_Brand)
     }).filter(i => {
+        if (!price) return true
         // filter price range
         const [min, max] = price.split("-");
         return Number(i.Price) >= Number(min) && Number(i.Price) <= Number(max)
     }).filter(i => {
+        if (!q) return true
         // filter query string
         return Object.values(i).some(v => v.includes(q));
     })
