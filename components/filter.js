@@ -1,6 +1,6 @@
 import './modal.js';
 import { fetchAllBrand, fetchAllType, fetchPriceRange } from './api.js';
-import { getPathSegment, cacheData, convert2indices } from './utils.js';
+import { getPathSegment, cacheData, convert2indices, getUrlParams } from './utils.js';
 import { SQL, SEARCHED_DATA } from './constant.js';
 
 // Setup modal functionality for filter popup
@@ -44,31 +44,37 @@ const getAllTypeData = async () => {
 
 // Generate filter options from backend data
 const generateFilters = async () => {
-    const priceRange = await fetchPriceRange();
-    const allBrand = await getAllBrandData();
-    const allTypes = await getAllTypeData();
+    const { brand, distance, price, type } = getUrlParams();
+    const priceRangeData = await fetchPriceRange();
+    const allBrandData = await getAllBrandData();
+    const allTypesData = await getAllTypeData();
 
-    setupPriceRangeInput(priceRange);
-    setupDistanceRangeInput();
-    generateBrands(allBrand);
-    generateTypes(allTypes);
+    setupPriceRangeInput(priceRangeData, price);
+    setupDistanceRangeInput(distance);
+    generateBrands(allBrandData, brand);
+    generateTypes(allTypesData, type);
 }
 
 // Setup price range input field based on data
-const setupPriceRangeInput = priceRange => {
-    const { max, min } = priceRange[0];
+const setupPriceRangeInput = (priceRangeData, priceRangeURL) => {
+    const [minURL, maxURL] = priceRangeURL.split("-");
+    const { max, min } = priceRangeData[0];
+
     $('input[name="min-price"]').val(min);
     const $input = $('#price-range');
-    $input.next().text(`AUD $${min} - AUD $${max}`);
-    $input.attr({ min, max, value: max }).bind('input', () => {
+    $input.next().text(`AUD $${min} - AUD $${maxURL || max}`);
+
+    $input.attr({ min, max, value: maxURL || max }).bind('input', () => {
         const value = $input.val();
         $input.next().text(`AUD $${min} - AUD $${value}`);
     });
 }
 
 // Setup distance range input field
-const setupDistanceRangeInput = () => {
+const setupDistanceRangeInput = distanceRange => {
+    const [min, max] = distanceRange.split("-");
     const $input = $('#distance-range');
+    $input.val(max)
     $input.bind('input', () => {
         const value = $input.val();
         $input.next().text(`0km - ${value}km`);
@@ -76,7 +82,8 @@ const setupDistanceRangeInput = () => {
 }
 
 // Generate brand filter options
-const generateBrands = data => {
+const generateBrands = (data, checked) => {
+    const checkedArray = checked === "-1" || !checked ? [] : checked.split(",");
     const $all = $("#brand-all");
     $all.click(() => {
         if ($all.is(':checked')) {
@@ -86,6 +93,8 @@ const generateBrands = data => {
         }
     });
 
+    if (checkedArray.length >0) $all.prop('checked', false);
+
     const clickHandler = () => {
         if ($('input[name="brand"]:checked').length == 8) {
             $all.prop('checked', true);
@@ -94,8 +103,9 @@ const generateBrands = data => {
         }
     };
     const $container = $("#form-petrol-brand");
-    data.splice(0, 8).forEach(brand => {
-        const $span = $(`<span><input type="checkbox" name="brand" checked value="${brand}" id="brand-${brand}"></span>`);
+    data.splice(0, 8).forEach((brand, index) => {
+        const isChecked = checkedArray.includes(index + "") || checkedArray.length === 0 ? 'checked' : '';
+        const $span = $(`<span><input type="checkbox" name="brand" ${isChecked} value="${brand}" id="brand-${brand}"></span>`);
         $span.click(clickHandler);
         $span.append(`<label for="brand-${brand}" class="filter-button">${brand}</label>`);
         $container.append($span);
@@ -103,7 +113,8 @@ const generateBrands = data => {
 }
 
 // Generate fuel type filter options
-const generateTypes = data => {
+const generateTypes = (data, checked) => {
+    const checkedArray = checked === "-1" || !checked ? [] : checked.split(",");
     const $all = $("#type-all");
     $all.click(() => {
         if ($all.is(':checked')) {
@@ -112,6 +123,8 @@ const generateTypes = data => {
             $('input[name="type"]').prop('checked', false);
         }
     });
+
+    if (checkedArray.length > 0) $all.prop('checked', false);
 
     const clickHandler = () => {
         if ($('input[name="type"]:checked').length == data.length) {
@@ -122,8 +135,9 @@ const generateTypes = data => {
     };
 
     const $container = $("#form-petrol-type");
-    data.forEach(type => {
-        const $span = $(`<span><input type="checkbox" name="type" checked value="${type}" id="type-${type}"></span>`);
+    data.forEach((type, index) => {
+        const isChecked = checkedArray.includes(index + "") || checkedArray.length === 0 ? 'checked' : '';
+        const $span = $(`<span><input type="checkbox" name="type" ${isChecked} value="${type}" id="type-${type}"></span>`);
         $span.click(clickHandler);
         $span.append(`<label for="type-${type}" class="filter-button">${type}</label>`);
         $container.append($span);

@@ -20,15 +20,6 @@ const searchButton = document.querySelector('.btn-circular-yellow');
 
 let userLocation = null;
 
-function a() {
-    // all = -1
-    const params = getUrlParams()
-    const allBrand = cacheData(SQL.allBrand)
-    const allType = cacheData(SQL.allType)
-    console.log(params, allBrand, allType)
-}
-a()
-
 // Get user location
 function getUserLocation() {
     return new Promise((resolve, reject) => {
@@ -99,6 +90,30 @@ let sqlQuery = `
     FROM "28ab00ec-00dd-4edf-b272-0543df4dcbe5" AS main
 `;
 
+
+const filterData = data => {
+    const { brand, distance, price, q, type } = getUrlParams()
+    const allBrand = cacheData(SQL.allBrand)
+    const allType = cacheData(SQL.allType)
+
+    return data.filter(i => {
+        // filter brand data
+        if (brand === "-1") { return true }
+        return allBrand.includes(i.Site_Brand)
+    }).filter(i => {
+        // filter type data
+        if (type === "-1") { return true }
+        return allType.includes(i.Site_Brand)
+    }).filter(i => {
+        // filter price range
+        const [min, max] = price.split("-");
+        return Number(i.Price) >= Number(min) && Number(i.Price) <= Number(max)
+    }).filter(i => {
+        // filter query string
+        return Object.values(i).some(v => v.includes(q));
+    })
+}
+
 $.ajax({
     url: url,
     data: {
@@ -116,8 +131,7 @@ $.ajax({
                 latestRecords[key] = record;
             }
         });
-
-        allRecords = Object.values(latestRecords);
+        allRecords = filterData(Object.values(latestRecords));
         originalAllRecords = [...allRecords];
 
         renderPagination();
@@ -374,7 +388,7 @@ function performSearch() {
     if (searchTerm === '') {
         allRecords = [...originalAllRecords];
     } else {
-        allRecords = originalAllRecords.filter(record => 
+        allRecords = originalAllRecords.filter(record =>
             record.Site_Name.toLowerCase().includes(searchTerm) ||
             record.Sites_Address_Line_1.toLowerCase().includes(searchTerm) ||
             record.Site_Suburb.toLowerCase().includes(searchTerm) ||
@@ -386,12 +400,12 @@ function performSearch() {
     renderPagination();
 }
 
-searchButton.addEventListener('click', function(e) {
+searchButton.addEventListener('click', function (e) {
     e.preventDefault();
     performSearch();
 });
 
-searchInput.addEventListener('keypress', function(e) {
+searchInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         e.preventDefault();
         performSearch();
