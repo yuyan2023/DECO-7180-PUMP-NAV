@@ -53,10 +53,10 @@
 					Filter
 				</button>
       </div>
-      <div class="filter-bar">
+      <div class="sort-bar">
         <p>Sort By</p>
-        <button id="price-button" class="filter-button">Price ▲</button>
-        <button id="distance-button" class="filter-button">Distance ▲</button>
+        <button id="price-button" class="sort-button">Price ▲</button>
+        <button id="distance-button" class="sort-button">Distance ▲</button>
       </div>
     </div>
     <div class="search-result">
@@ -68,57 +68,6 @@
 
     </div>
     <div class="pagination"></div>
-
-
-    <div id="filter-popup" class="modal" role="dialog" aria-labelledby="filter-popup">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 id="filter-popup-header">Filters</h2>
-          <button class="close" aria-label="Close filters"><i class="bi bi-x-lg"></i></button>
-        </div>
-        <form id="filters-form">
-          <div class="modal-body">
-            <!-- Price Range -->
-            <div class="filter-group">
-              <input type="hidden" name="min-price">
-              <label for="price-range">Price Range</label>
-              <input type="range" id="price-range" name="price" step="1" class="slider" aria-valuemin="0"
-                aria-valuemax="100" aria-valuenow="50">
-              <span id="price-range-output"></span>
-            </div>
-
-            <!-- Petrol Brand -->
-            <div class="filter-group">
-              <label>Petrol Brand</label>
-              <div class="button-group" id="form-petrol-brand">
-                <input type="checkbox" id="brand-all" value="all" checked>
-                <label for="brand-all" class="filter-button">All</label>
-              </div>
-            </div>
-
-            <!-- Petrol Type -->
-            <div class="filter-group">
-              <label>Petrol Type</label>
-              <div class="button-group" id="form-petrol-type">
-                <input type="checkbox" id="type-all" value="all" checked>
-                <label for="type-all" class="filter-button">All</label>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <label for="distance-range">Distance Range</label>
-              <input type="range" id="distance-range" name="distance" min="0" max="10" step="1" value="10"
-                class="slider" aria-valuemin="0" aria-valuemax="10" aria-valuenow="10">
-              <span id="distance-range-output">0km - 10km</span>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn-text" id="reset-btn">Reset Filters</button>
-            <button type="submit" class="btn-primary" id="modal-search-btn">Search</button>
-          </div>
-        </form>
-      </div>
     </div>
   </main>
   <footer>

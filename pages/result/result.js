@@ -14,6 +14,9 @@ const url = 'https://www.data.qld.gov.au/api/3/action/datastore_search_sql';
 let currentPage = 1;
 const resultsPerPage = 9;
 let allRecords = [];
+let originalAllRecords = [];
+const searchInput = document.getElementById('search-input');
+const searchButton = document.querySelector('.btn-circular-yellow');
 
 let userLocation = null;
 
@@ -115,6 +118,7 @@ $.ajax({
         });
 
         allRecords = Object.values(latestRecords);
+        originalAllRecords = [...allRecords];
 
         renderPagination();
         renderResults(currentPage);
@@ -193,12 +197,10 @@ function renderResults(page) {
         const targetUrl = '../detail/detail.html';
 
         resultDiv.addEventListener('click', function () {
-            // 将所有数据编码为 URL 参数
             const params = new URLSearchParams(record).toString();
             window.location.href = `${targetUrl}?${params}`;
         });
 
-        // Add distance display
         let distanceDisplay = '';
         if (record.distance !== undefined) {
             distanceDisplay = `<p class="site-distance">${record.distance.toFixed(2)} km</p>`;
@@ -221,24 +223,21 @@ function renderResults(page) {
     });
 }
 
-// Price sorting function
 function sortResultsByPrice(ascending) {
     allRecords.sort((a, b) => {
         const priceA = parseFloat(a.Price);
         const priceB = parseFloat(b.Price);
 
         if (ascending) {
-            return priceA - priceB;  // Ascending
+            return priceA - priceB;
         } else {
-            return priceB - priceA;  // Descending
+            return priceB - priceA;
         }
     });
 
-    // Re-render results after sorting
     renderResults(currentPage);
 }
 
-// Distance sorting function
 function sortResultsByDistance(ascending) {
     if (!userLocation) {
         alert("Unable to get your location. Please allow location access and refresh the page.");
@@ -369,3 +368,32 @@ function handleSortByDistance() {
         alert("Unable to get your location. Please allow location access and try again.");
     });
 }
+
+function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    if (searchTerm === '') {
+        allRecords = [...originalAllRecords];
+    } else {
+        allRecords = originalAllRecords.filter(record => 
+            record.Site_Name.toLowerCase().includes(searchTerm) ||
+            record.Sites_Address_Line_1.toLowerCase().includes(searchTerm) ||
+            record.Site_Suburb.toLowerCase().includes(searchTerm) ||
+            record.Site_Post_Code.includes(searchTerm)
+        );
+    }
+    currentPage = 1;
+    renderResults(currentPage);
+    renderPagination();
+}
+
+searchButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    performSearch();
+});
+
+searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        performSearch();
+    }
+});
