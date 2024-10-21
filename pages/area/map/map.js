@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 Brand: ${station.Site_Brand || 'Unknown'}<br/>
                 Fuel Type: ${station.Fuel_Type || 'N/A'}<br/>
                 Price: $${(station.Price / 100).toFixed(2)} AUD<br/>
-                Last Updated: ${new Date(station.Last_Updated).toLocaleString()}
             `;
 
             // Add a marker to the map for the station with a popup
@@ -69,8 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p><strong>Address:</strong> ${station.Sites_Address_Line_1}, ${station.Site_Suburb}</p>
                 <p><strong>Brand:</strong> ${station.Site_Brand || 'Unknown'}</p>
                 <p><strong>Fuel Type:</strong> ${station.Fuel_Type || 'N/A'}</p>
-                <p class="price">Price: $${(station.Price / 100).toFixed(2)} AUD</p>
-                <p class="last-updated">Last Updated: ${new Date(station.Last_Updated).toLocaleString()}</p>
+                <p class="price">Price: $${(station.Price / 100).toFixed(2)} AUD</p>  
             `;
             // Append the station card to the station list
             stationList.appendChild(card);
