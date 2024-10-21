@@ -96,6 +96,8 @@ const filterData = data => {
     const allBrand = cacheData(SQL.allBrand)
     const allType = cacheData(SQL.allType)
 
+    $("#search-input").val(q)
+
     return data.filter(i => {
         // filter brand data
         if (brand === "-1" || !brand) { return true }
